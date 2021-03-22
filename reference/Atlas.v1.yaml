@@ -3,13 +3,15 @@ info:
   title: Atlas
   version: '1.0'
 servers:
-  - url: 'http://localhost:3000'
+  - url: '${aws_api_gateway_deployment.atlas.invoke_url}'
 paths:
   /documents:
     get:
       summary: Get all documents
       tags:
         - documents
+      x-amazon-apigateway-integration:
+        type: mock
       responses:
         '200':
           description: OK
@@ -21,10 +23,13 @@ paths:
                   type: string
       operationId: get-documents
       description: List all document UUIDs.
+      parameters: []
     post:
       summary: Create a new document
       tags:
         - documents
+      x-amazon-apigateway-integration:
+        type: mock
       responses:
         '201':
           description: Document Created
@@ -52,6 +57,8 @@ paths:
       summary: Get a document by ID
       tags:
         - documents
+      x-amazon-apigateway-integration:
+        type: mock
       responses:
         '200':
           description: Document Found
@@ -67,6 +74,8 @@ paths:
       summary: Overwrite a document
       tags:
         - documents
+      x-amazon-apigateway-integration:
+        type: mock
       responses:
         '200':
           description: Document Edited
@@ -94,6 +103,8 @@ paths:
       summary: Change a document
       tags:
         - documents
+      x-amazon-apigateway-integration:
+        type: mock
       responses:
         '200':
           description: OK
@@ -121,6 +132,8 @@ paths:
       summary: Delete a document
       tags:
         - documents
+      x-amazon-apigateway-integration:
+        type: mock
       responses:
         '204':
           description: Document Deleted
@@ -131,6 +144,8 @@ paths:
     head:
       summary: ''
       operationId: head-documents-documentId
+      x-amazon-apigateway-integration:
+        type: mock
       responses:
         '200':
           description: Document Exists
@@ -141,47 +156,6 @@ paths:
         - documents
 components:
   schemas:
-    User:
-      title: User
-      type: object
-      description: ''
-      x-examples:
-        Alice Smith:
-          id: 142
-          firstName: Alice
-          lastName: Smith
-          email: alice.smith@gmail.com
-          dateOfBirth: '1997-10-31'
-          emailVerified: true
-          signUpDate: '2019-08-24'
-      properties:
-        id:
-          type: integer
-          description: Unique identifier for the given user.
-        firstName:
-          type: string
-        lastName:
-          type: string
-        email:
-          type: string
-          format: email
-        dateOfBirth:
-          type: string
-          format: date
-          example: '1997-10-31'
-        emailVerified:
-          type: boolean
-          description: Set to true if the user's email has been verified.
-        createDate:
-          type: string
-          format: date
-          description: The date that the user was created.
-      required:
-        - id
-        - firstName
-        - lastName
-        - email
-        - emailVerified
     Document:
       title: Document
       allOf:
@@ -218,3 +192,5 @@ components:
           description: Metadata about the contained object
       required:
         - data
+  parameters: {}
+  responses: {}
