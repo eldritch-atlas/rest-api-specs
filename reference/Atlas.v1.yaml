@@ -2,8 +2,10 @@ openapi: 3.0.0
 info:
   title: Atlas
   version: '1.0'
+  description: Eldritch Atlas - API
 servers:
-  - url: '${aws_api_gateway_deployment.atlas.invoke_url}'
+  - url: 'https://eldritch-atlas.com/api/v1'
+    description: v1
 paths:
   /documents:
     get:
@@ -194,3 +196,5 @@ components:
         - data
   parameters: {}
   responses: {}
+  securitySchemes: {}
+security: []
